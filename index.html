@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
     <style>
         .enlace-transparencia {
             display: inline-block;
@@ -32,36 +32,72 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Ajuste móvil directo para solo iconos */
+        /* AJUSTES VISUALES EN CELULARES */
         @media (max-width: 600px) {
+            .hero-background {
+                min-height: 100vh;
+                height: auto;
+                padding: 60px 20px 80px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .hero-contenido {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            /* Fila de los 3 botones en el centro */
             .contenedor-botones {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: center !important;
                 align-items: center !important;
-                gap: 16px !important;
+                gap: 14px !important;
                 width: 100% !important;
-                margin-bottom: 30px !important;
+                margin: 24px 0 !important;
             }
 
+            /* Los botones pasan a ser cajas cuadradas compactas */
             .btn-minimal {
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                width: 48px !important;
-                height: 48px !important;
+                width: 44px !important;
+                height: 44px !important;
                 padding: 0 !important;
-                border-radius: 12px !important;
+                border-radius: 10px !important;
             }
 
+            /* Ocultamos solo el texto de la palabra */
             .btn-minimal span {
                 display: none !important;
             }
 
             .btn-minimal .icono-svg {
-                width: 20px !important;
-                height: 20px !important;
+                width: 18px !important;
+                height: 18px !important;
                 margin: 0 !important;
+            }
+
+            /* Aseguramos que el texto editorial y transparencia se lean claros */
+            .hero-credito {
+                display: block !important;
+                font-size: 11.5px !important;
+                line-height: 1.65 !important;
+                margin-top: 10px !important;
+            }
+
+            .firma-jc {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                display: block !important;
             }
         }
 
@@ -175,3 +211,59 @@
                     </svg>
                     <span>LinkedIn</span>
                 </a>
+
+                <!-- Email -->
+                <a href="mailto:dolmen.arquitectura@proton.me" class="btn-minimal">
+                    <svg class="icono-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>Email</span>
+                </a>
+            </div>
+
+            <p class="hero-credito">
+                Dolmen es una publicación cultural digital y el único canal oficial del Arq. Daniel Roberto Carmuega. Artículos y patrocinios: <a href="mailto:dolmen.arquitectura@proton.me">dolmen.arquitectura@proton.me</a>.<br>
+                Dado en Buenos Aires, <span class="destello-anno">Anno Domini 2026</span>.<br>
+                <a href="transparencia.html" class="enlace-transparencia">Transparencia</a>
+            </p>
+        </div>
+
+        <!-- Firma inferior -->
+        <a href="https://www.josecarmuega.com" target="_blank" rel="noopener noreferrer" class="firma-jc">JC</a>
+    </div>
+
+    <!-- Barra inferior completa de Cookies / Privacidad -->
+    <div id="cookie-banner" class="cookie-barra-full">
+        <div class="cookie-contenido">
+            <p class="cookie-texto">
+                Utilizamos cookies propias y de terceros estrictamente necesarias para la navegación, seguridad técnica y preservación editorial del sitio según los estándares vigentes de privacidad.
+            </p>
+            <div class="cookie-acciones">
+                <button type="button" class="cookie-btn cookie-btn-rechazar" onclick="gestionarCookies('rejected')">Rechazar</button>
+                <button type="button" class="cookie-btn cookie-btn-aceptar" onclick="gestionarCookies('accepted')">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function gestionarCookies(estado) {
+            localStorage.setItem('dolmen_cookies_consent', estado);
+            const banner = document.getElementById('cookie-banner');
+            if (banner) {
+                banner.style.opacity = '0';
+                banner.style.transform = 'translateY(100%)';
+                setTimeout(() => { banner.style.display = 'none'; }, 300);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('dolmen_cookies_consent')) {
+                const banner = document.getElementById('cookie-banner');
+                if (banner) banner.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
