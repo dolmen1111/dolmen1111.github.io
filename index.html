@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
     <style>
         .enlace-transparencia {
             display: inline-block;
@@ -30,6 +30,121 @@
             color: #ffffff;
             border-color: rgba(255, 255, 255, 0.55);
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Ajuste móvil directo para solo iconos */
+        @media (max-width: 600px) {
+            .contenedor-botones {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 16px !important;
+                width: 100% !important;
+                margin-bottom: 30px !important;
+            }
+
+            .btn-minimal {
+                display: inline-flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 48px !important;
+                height: 48px !important;
+                padding: 0 !important;
+                border-radius: 12px !important;
+            }
+
+            .btn-minimal span {
+                display: none !important;
+            }
+
+            .btn-minimal .icono-svg {
+                width: 20px !important;
+                height: 20px !important;
+                margin: 0 !important;
+            }
+        }
+
+        /* Banner de Cookies */
+        .cookie-barra-full {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(14, 14, 14, 0.94);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 999;
+            padding: 16px 24px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .cookie-contenido {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .cookie-texto {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #a8a49d;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .cookie-acciones {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            background: transparent;
+            font-family: inherit;
+            font-size: 11.5px;
+            letter-spacing: 0.04em;
+            padding: 7px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cookie-btn-rechazar {
+            color: #a8a49d;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .cookie-btn-rechazar:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cookie-btn-aceptar {
+            background-color: #ffffff;
+            color: #121212;
+            border: 1px solid #ffffff;
+            font-weight: 500;
+        }
+
+        .cookie-btn-aceptar:hover {
+            background-color: #e5e0d8;
+            border-color: #e5e0d8;
+        }
+
+        @media (max-width: 600px) {
+            .cookie-contenido {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 14px;
+            }
+            .cookie-acciones {
+                justify-content: flex-end;
+            }
         }
     </style>
 </head>
@@ -60,59 +175,3 @@
                     </svg>
                     <span>LinkedIn</span>
                 </a>
-
-                <!-- Email -->
-                <a href="mailto:dolmen.arquitectura@proton.me" class="btn-minimal">
-                    <svg class="icono-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                    <span>Email</span>
-                </a>
-            </div>
-
-            <p class="hero-credito">
-                Dolmen es una publicación cultural digital y el único canal oficial del Arq. Daniel Roberto Carmuega. Artículos y patrocinios: <a href="mailto:dolmen.arquitectura@proton.me">dolmen.arquitectura@proton.me</a>.<br>
-                Dado en Buenos Aires, <span class="destello-anno">Anno Domini 2026</span>.<br>
-                <a href="transparencia.html" class="enlace-transparencia">Transparencia</a>
-            </p>
-        </div>
-
-        <!-- Firma inferior -->
-        <a href="https://www.josecarmuega.com" target="_blank" rel="noopener noreferrer" class="firma-jc">JC</a>
-    </div>
-
-    <!-- Barra inferior completa de Cookies / Privacidad -->
-    <div id="cookie-banner" class="cookie-barra-full">
-        <div class="cookie-contenido">
-            <p class="cookie-texto">
-                Utilizamos cookies propias y de terceros estrictamente necesarias para la navegación, seguridad técnica y preservación editorial del sitio según los estándares vigentes de privacidad.
-            </p>
-            <div class="cookie-acciones">
-                <button type="button" class="cookie-btn cookie-btn-rechazar" onclick="gestionarCookies('rejected')">Rechazar</button>
-                <button type="button" class="cookie-btn cookie-btn-aceptar" onclick="gestionarCookies('accepted')">Aceptar</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function gestionarCookies(estado) {
-            localStorage.setItem('dolmen_cookies_consent', estado);
-            const banner = document.getElementById('cookie-banner');
-            if (banner) {
-                banner.style.opacity = '0';
-                banner.style.transform = 'translateY(100%)';
-                setTimeout(() => { banner.style.display = 'none'; }, 300);
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('dolmen_cookies_consent')) {
-                const banner = document.getElementById('cookie-banner');
-                if (banner) banner.style.display = 'none';
-            }
-        });
-    </script>
-
-</body>
-</html>
