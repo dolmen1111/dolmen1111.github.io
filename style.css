@@ -74,7 +74,7 @@ body, html {
 }
 
 /* =========================================
-   BOTONES
+   BOTONES (ESCRITORIO: Ícono + Texto)
    ========================================= */
 .contenedor-botones {
     display: flex;
@@ -349,49 +349,66 @@ body, html {
 }
 
 /* =========================================
-   MOBILE (Alineación perfecta de botones)
+   VERSIÓN MÓVIL: SOLO ÍCONOS EN FILA
    ========================================= */
 @media (max-width: 600px) {
     .hero-background {
         padding: 50px 20px 60px 20px;
     }
     
-    /* Contenedor acotado y centrado en pantalla */
     .contenedor-botones {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
         width: 100%;
-        max-width: 250px;
-        flex-direction: column;
-        gap: 10px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-bottom: 30px;
     }
 
-    /* Los botones alinean ícono y texto a la izquierda con padding parejo */
     .btn-minimal {
-        width: 100%;
-        justify-content: flex-start;
-        padding: 12px 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .btn-minimal span {
+        display: none;
+    }
+
+    .btn-minimal .icono-svg {
+        width: 20px;
+        height: 20px;
     }
 
     .firma-jc {
         bottom: 16px;
         right: 18px;
     }
+
     .articulo-pagina {
         padding: 40px 20px 30px 20px;
     }
+
     .articulo-cuerpo p {
         font-size: 15.5px;
         line-height: 1.8;
     }
+
     .articulo-cuerpo blockquote {
         font-size: 22px;
         padding-left: 18px;
     }
+
     .articulo-cierre {
         margin-top: 40px;
         padding-top: 30px;
     }
+
     .entrada-titulo {
         font-size: 22px;
     }
