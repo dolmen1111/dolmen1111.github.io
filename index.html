@@ -44,7 +44,13 @@
             -webkit-backdrop-filter: blur(12px);
             z-index: 999;
             padding: 16px 24px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+        }
+
+        .cookie-barra-full.cookie-oculta {
+            opacity: 0;
+            transform: translateY(100%);
+            pointer-events: none;
         }
 
         .cookie-contenido {
@@ -178,4 +184,30 @@
     </div>
 
     <script>
-        function gestionarCookies(estado)
+        function gestionarCookies(estado) {
+            const banner = document.getElementById('cookie-banner');
+            
+            if (estado === 'accepted') {
+                localStorage.setItem('dolmen_cookies_consent', 'accepted');
+                if (banner) {
+                    banner.classList.add('cookie-oculta');
+                    setTimeout(() => { banner.style.display = 'none'; }, 350);
+                }
+            } else if (estado === 'rejected') {
+                localStorage.setItem('dolmen_cookies_consent', 'rejected');
+                // Redirige a la página de transparencia/políticas al rechazar
+                window.location.href = 'transparencia.html';
+            }
+        }
+
+        // Si ya aceptó anteriormente, no muestra la barra
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('dolmen_cookies_consent') === 'accepted') {
+                const banner = document.getElementById('cookie-banner');
+                if (banner) banner.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
