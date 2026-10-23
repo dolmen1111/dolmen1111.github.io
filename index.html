@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css">
     <style>
         .enlace-transparencia {
             display: inline-block;
@@ -30,75 +30,6 @@
             color: #ffffff;
             border-color: rgba(255, 255, 255, 0.55);
             background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* AJUSTES VISUALES EN CELULARES */
-        @media (max-width: 600px) {
-            .hero-background {
-                min-height: 100vh;
-                height: auto;
-                padding: 60px 20px 80px 20px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .hero-contenido {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                width: 100%;
-            }
-
-            /* Fila de los 3 botones en el centro */
-            .contenedor-botones {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: center !important;
-                align-items: center !important;
-                gap: 14px !important;
-                width: 100% !important;
-                margin: 24px 0 !important;
-            }
-
-            /* Los botones pasan a ser cajas cuadradas compactas */
-            .btn-minimal {
-                display: inline-flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                width: 44px !important;
-                height: 44px !important;
-                padding: 0 !important;
-                border-radius: 10px !important;
-            }
-
-            /* Ocultamos solo el texto de la palabra */
-            .btn-minimal span {
-                display: none !important;
-            }
-
-            .btn-minimal .icono-svg {
-                width: 18px !important;
-                height: 18px !important;
-                margin: 0 !important;
-            }
-
-            /* Aseguramos que el texto editorial y transparencia se lean claros */
-            .hero-credito {
-                display: block !important;
-                font-size: 11.5px !important;
-                line-height: 1.65 !important;
-                margin-top: 10px !important;
-            }
-
-            .firma-jc {
-                position: absolute;
-                bottom: 20px;
-                right: 20px;
-                display: block !important;
-            }
         }
 
         /* Banner de Cookies */
@@ -247,23 +178,4 @@
     </div>
 
     <script>
-        function gestionarCookies(estado) {
-            localStorage.setItem('dolmen_cookies_consent', estado);
-            const banner = document.getElementById('cookie-banner');
-            if (banner) {
-                banner.style.opacity = '0';
-                banner.style.transform = 'translateY(100%)';
-                setTimeout(() => { banner.style.display = 'none'; }, 300);
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('dolmen_cookies_consent')) {
-                const banner = document.getElementById('cookie-banner');
-                if (banner) banner.style.display = 'none';
-            }
-        });
-    </script>
-
-</body>
-</html>
+        function gestionarCookies(estado)
