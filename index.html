@@ -185,24 +185,17 @@
 
     <script>
         function gestionarCookies(estado) {
+            localStorage.setItem('dolmen_cookies_consent', estado);
             const banner = document.getElementById('cookie-banner');
-            
-            if (estado === 'accepted') {
-                localStorage.setItem('dolmen_cookies_consent', 'accepted');
-                if (banner) {
-                    banner.classList.add('cookie-oculta');
-                    setTimeout(() => { banner.style.display = 'none'; }, 350);
-                }
-            } else if (estado === 'rejected') {
-                localStorage.setItem('dolmen_cookies_consent', 'rejected');
-                // Redirige a la página de transparencia/políticas al rechazar
-                window.location.href = 'transparencia.html';
+            if (banner) {
+                banner.classList.add('cookie-oculta');
+                setTimeout(() => { banner.style.display = 'none'; }, 350);
             }
         }
 
-        // Si ya aceptó anteriormente, no muestra la barra
+        // Si ya interactuó con el banner antes, no lo muestra
         document.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('dolmen_cookies_consent') === 'accepted') {
+            if (localStorage.getItem('dolmen_cookies_consent')) {
                 const banner = document.getElementById('cookie-banner');
                 if (banner) banner.style.display = 'none';
             }
