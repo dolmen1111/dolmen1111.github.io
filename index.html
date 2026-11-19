@@ -92,6 +92,25 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        /* Guiño inferior izquierdo idéntico en jerarquía a JC */
+        .glifo-juego {
+            position: absolute;
+            bottom: 20px;
+            left: 24px;
+            z-index: 2;
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: #66635e;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .glifo-juego:hover {
+            color: #d8d3cb;
+        }
+
         /* Ajustes de escala proporcional para celulares */
         @media (max-width: 600px) {
             .hero-titulo {
@@ -135,6 +154,12 @@
             .firma-jc {
                 bottom: 14px !important;
                 right: 16px !important;
+                font-size: 11px !important;
+            }
+
+            .glifo-juego {
+                bottom: 14px !important;
+                left: 16px !important;
                 font-size: 11px !important;
             }
         }
@@ -280,6 +305,9 @@
                 <a href="herramientas.html" class="enlace-transparencia">Herramientas</a>
             </div>
         </div>
+
+        <!-- Guiño inferior izquierdo -->
+        <a href="juego.html" class="glifo-juego" aria-label="▀▄▀">▀▄▀</a>
 
         <!-- Firma inferior -->
         <a href="https://www.josecarmuega.com" target="_blank" rel="noopener noreferrer" class="firma-jc">JC</a>
