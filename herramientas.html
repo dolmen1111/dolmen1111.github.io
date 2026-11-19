@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOLMEN | Herramientas</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #000000;
+      color: #e5e5e5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 60px 24px 28px;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999999;
+      margin-bottom: 24px;
+    }
+
+    .lead {
+      color: #d1d1d1;
+      font-size: 15.5px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #222222;
+      margin: 28px 0;
+    }
+
+    /* Barra de filtros sobria estilo Dolmen */
+    .filters-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0 36px;
+    }
+
+    .filter-pill {
+      background-color: #080808;
+      border: 1px solid #1f1f1f;
+      color: #999999;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 7px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill:hover {
+      border-color: #555555;
+      color: #ffffff;
+    }
+
+    .filter-pill.is-active {
+      background-color: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
+      font-weight: 600;
+    }
+
+    /* Secciones y encabezados de categoría */
+    .cat-section {
+      margin-bottom: 44px;
+    }
+
+    .cat-section.is-hidden {
+      display: none;
+    }
+
+    .cat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #222222;
+      padding-bottom: 10px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .cat-count {
+      font-family: monospace;
+      font-size: 12px;
+      color: #666666;
+    }
+
+    /* Grilla de herramientas */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background-color: #080808;
+      border: 1px solid #1f1f1f;
+      padding: 16px 18px;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .tool-card:hover {
+      border-color: #666666;
+      background-color: #0d0d0d;
+    }
+
+    .tool-name {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #a3a3a3;
+      font-weight: 400;
+    }
+
+    /* Pie institucional idéntico a transparencia.html */
+    footer {
+      margin-top: 44px;
+      padding-top: 20px;
+      border-top: 1px solid #161616;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #666666;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+      padding: 6px;
+    }
+
+    .footer-link:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .footer-link svg {
+      width: 19px;
+      height: 19px;
+      stroke-width: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 40px 18px 24px;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .filter-pill {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    <header>
+      <h1>DOLMEN</h1>
+      <div class="subtitle">Herramientas y utilidades técnicas</div>
+      <p class="lead">
+        Cincuenta recursos web gratuitos, directos y sin publicidad para arquitectos, ingenieros civiles, constructores y urbanistas: asistentes de inteligencia artificial, simuladores estructurales, cartografía, archivo académico y pastillas de recreo espacial.
+      </p>
+    </header>
+
+    <nav class="filters-nav" aria-label="Filtrar herramientas por categoría">
+      <button type="button" class="filter-pill is-active" data-filter="all">Todas (50)</button>
+      <button type="button" class="filter-pill" data-filter="proyecto">Proyecto y 3D</button>
+      <button type="button" class="filter-pill" data-filter="render">Render y visualización</button>
+      <button type="button" class="filter-pill" data-filter="urbanismo">Urbanismo y territorio</button>
+      <button type="button" class="filter-pill" data-filter="calculo">Cálculo e ingeniería</button>
+      <button type="button" class="filter-pill" data-filter="obra">Obra y presupuesto</button>
+      <button type="button" class="filter-pill" data-filter="academia">Academia y teoría</button>
+      <button type="button" class="filter-pill" data-filter="recreo">Recreo</button>
+    </nav>
+
+    <!-- 1. Proyecto y 3D (8) -->
+    <section class="cat-section" data-category="proyecto">
+      <div class="cat-header">
+        <h2>Proyecto y 3D</h2>
+        <span class="cat-count">08</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.rayon.design" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Rayon</div>
+          <p class="tool-desc">Dibujo técnico CAD y armado de plantas de arquitectura colaborativas directo en el navegador.</p>
+        </a>
+        <a href="https://www.finer.io" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Finer</div>
+          <p class="tool-desc">Generador de distribuciones de planta y zonificación espacial asistido por algoritmos en segundos.</p>
+        </a>
+        <a href="https://app.diagrams.net" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Draw.io</div>
+          <p class="tool-desc">Diagramación técnica, esquemas funcionales, organigramas de proyecto y plantas conceptuales limpias.</p>
+        </a>
+        <a href="https://www.dimensions.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Dimensions</div>
+          <p class="tool-desc">Enciclopedia visual de medidas estándar de arquitectura, ergonomía, mobiliario y equipamiento urbano.</p>
+        </a>
+        <a href="https://www.vectary.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Vectary</div>
+          <p class="tool-desc">Estudio de modelado 3D paramétrico y composición volumétrica ejecutado íntegramente en la web.</p>
+        </a>
+        <a href="https://www.tinkercad.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Tinkercad</div>
+          <p class="tool-desc">Modelado de sólidos geométricos y prototipado rápido de piezas y maquetas conceptuales sin instalar software.</p>
+        </a>
+        <a href="https://www.blocks.cad" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">CAD Blocks</div>
+          <p class="tool-desc">Biblioteca abierta de bloques DWG técnicos listos para descargar e insertar sin registros previos.</p>
+        </a>
+        <a href="https://3dviewer.net" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Online 3D Viewer</div>
+          <p class="tool-desc">Inspección, corte y medición de modelos BIM e industriales (IFC, OBJ, STL, GLTF) arrastrando el archivo.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. Render y visualización (7) -->
+    <section class="cat-section" data-category="render">
+      <div class="cat-header">
+        <h2>Render y visualización</h2>
+        <span class="cat-count">07</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.krea.ai" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Krea AI</div>
+          <p class="tool-desc">Renderizado en tiempo real a partir de croquis a mano alzada o capturas básicas de volúmenes 3D.</p>
+        </a>
+        <a href="https://www.vizcom.ai" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Vizcom</div>
+          <p class="tool-desc">Transforma bocetos lineales en visualizaciones fotorrealistas con control preciso de materiales y luz.</p>
+        </a>
+        <a href="https://www.promeai.pro" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">PromeAI</div>
+          <p class="tool-desc">Motor de visualización arquitectónica que interpreta plantas, cortes y maquetas blancas con estilos reales.</p>
+        </a>
+        <a href="https://polyhaven.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Poly Haven</div>
+          <p class="tool-desc">Biblioteca pública de cielos HDRI, texturas PBR de hormigón, madera y piedra en 8K sin registro.</p>
+        </a>
+        <a href="https://ambientcg.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">ambientCG</div>
+          <p class="tool-desc">Más de dos mil materiales físicos de construcción bajo dominio público listos para motores de render.</p>
+        </a>
+        <a href="https://www.upscayl.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Upscayl</div>
+          <p class="tool-desc">Ampliación y mejora de nitidez por inteligencia artificial para renders o fotografías de obra antiguas.</p>
+        </a>
+        <a href="https://www.remove.bg" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Remove.bg</div>
+          <p class="tool-desc">Recorte automático de siluetas humanas, vegetación y equipamiento para ambientar fotomontajes.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Urbanismo y territorio (8) -->
+    <section class="cat-section" data-category="urbanismo">
+      <div class="cat-header">
+        <h2>Urbanismo y territorio</h2>
+        <span class="cat-count">08</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.suncalc.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">SunCalc</div>
+          <p class="tool-desc">Cálculo exacto de asoleamiento, azimut y proyección de sombras sobre cualquier parcela del planeta.</p>
+        </a>
+        <a href="https://cadmapper.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Cadmapper</div>
+          <p class="tool-desc">Extracción instantánea de entornos urbanos en 3D y CAD con alturas edilicias, parcelas y topografía.</p>
+        </a>
+        <a href="https://es-ar.topographic-map.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Topographic Map</div>
+          <p class="tool-desc">Consulta de cotas de nivel, pendientes y perfiles altimétricos de terrenos rurales y urbanos.</p>
+        </a>
+        <a href="https://andrewmarsh.com/apps/staging/sunpath3d.html" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">3D Sun-Path</div>
+          <p class="tool-desc">Carta solar estereográfica tridimensional interactiva para estudios bioclimáticos de fachadas.</p>
+        </a>
+        <a href="https://overpass-turbo.eu" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Overpass Turbo</div>
+          <p class="tool-desc">Minería de datos geográficos abiertos para extraer redes viales, equipamiento y usos del suelo.</p>
+        </a>
+        <a href="https://www.oldmapsonline.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Old Maps Online</div>
+          <p class="tool-desc">Archivo cartográfico histórico geolocalizado para estudiar la evolución morfológica de las ciudades.</p>
+        </a>
+        <a href="https://streetmix.net" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Streetmix</div>
+          <p class="tool-desc">Diseño paramétrico de secciones viales, veredas, carriles y arbolado urbano en tiempo real.</p>
+        </a>
+        <a href="https://www.datos.gob.ar" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Datos Argentina</div>
+          <p class="tool-desc">Repositorios oficiales de infraestructura, censos, transporte y cartografía pública nacional.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. Cálculo e ingeniería (7) -->
+    <section class="cat-section" data-category="calculo">
+      <div class="cat-header">
+        <h2>Cálculo e ingeniería</h2>
+        <span class="cat-count">07</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://beamguru.com/online/beam-calculator/" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">BeamGuru</div>
+          <p class="tool-desc">Cálculo de reacciones, diagramas de corte, momento flector y deformaciones en vigas continuas.</p>
+        </a>
+        <a href="https://valdivia.staff.jade-hs.de/fachwerk_en.html" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Truss Analysis</div>
+          <p class="tool-desc">Simulador gráfico de reticulados planos y cerchas con cálculo inmediato de tracción y compresión.</p>
+        </a>
+        <a href="https://www.omnicalculator.com/construction" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Omni Construction</div>
+          <p class="tool-desc">Suite de calculadoras técnicas de pendientes, escaleras, dosificación de hormigón y cargas.</p>
+        </a>
+        <a href="https://www.wolframalpha.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">WolframAlpha</div>
+          <p class="tool-desc">Motor de cálculo simbólico y físico para resolver ecuaciones estructurales, unidades y propiedades.</p>
+        </a>
+        <a href="https://www.desmos.com/calculator?lang=es" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Desmos</div>
+          <p class="tool-desc">Graficador matemático de alta precisión para modelar curvas catenarias, arcos y geometría analítica.</p>
+        </a>
+        <a href="https://www.ubakus.de/en/r-value-calculator/" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Ubakus</div>
+          <p class="tool-desc">Cálculo de transmitancia térmica, condensación intersticial y aislamiento acústico de cerramientos.</p>
+        </a>
+        <a href="https://www.engineeringtoolbox.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Engineering ToolBox</div>
+          <p class="tool-desc">Tablas técnicas de resistencia de materiales, perfiles metálicos, hidráulica y física aplicada.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. Obra y presupuesto (6) -->
+    <section class="cat-section" data-category="obra">
+      <div class="cat-header">
+        <h2>Obra y presupuesto</h2>
+        <span class="cat-count">06</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://sharecad.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">ShareCAD</div>
+          <p class="tool-desc">Apertura y medición rápida de planos DWG y DXF en obra desde cualquier dispositivo sin AutoCAD.</p>
+        </a>
+        <a href="https://tools.pdf24.org/es" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">PDF24 Tools</div>
+          <p class="tool-desc">Compresión de legajos técnicos pesados, unión de planos y extracción de láminas sin límites.</p>
+        </a>
+        <a href="https://www.diffchecker.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Diffchecker</div>
+          <p class="tool-desc">Comparación línea por línea entre dos revisiones de un pliego de especificaciones o contrato de obra.</p>
+        </a>
+        <a href="https://cloudconvert.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">CloudConvert</div>
+          <p class="tool-desc">Conversión directa entre formatos vectoriales, planillas de cómputo, documentos y archivos CAD.</p>
+        </a>
+        <a href="https://www.onlineocr.net" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">OnlineOCR</div>
+          <p class="tool-desc">Digitalización de planillas impresas, remitos o memoria de cálculo escaneada a texto editable.</p>
+        </a>
+        <a href="https://excalidraw.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Excalidraw</div>
+          <p class="tool-desc">Pizarra vectorial para croquizar detalles constructivos de urgencia y compartirlos por enlace.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. Academia y teoría (7) -->
+    <section class="cat-section" data-category="academia">
+      <div class="cat-header">
+        <h2>Academia y teoría</h2>
+        <span class="cat-count">07</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Perplexity</div>
+          <p class="tool-desc">Investigación técnica y normativa asistida por IA con citas verificables y fuentes documentales.</p>
+        </a>
+        <a href="https://consensus.app" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Consensus</div>
+          <p class="tool-desc">Buscador académico con IA que sintetiza conclusiones de investigaciones científicas revisadas por pares.</p>
+        </a>
+        <a href="https://elicit.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Elicit</div>
+          <p class="tool-desc">Asistente de investigación para cruzar bibliografía, extraer datos de papers y estructurar estados del arte.</p>
+        </a>
+        <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">NotebookLM</div>
+          <p class="tool-desc">Cuaderno de estudio con IA para interrogar códigos de edificación, tesis y libros propios sin alucinaciones.</p>
+        </a>
+        <a href="https://www.connectedpapers.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Connected Papers</div>
+          <p class="tool-desc">Mapas visuales de genealogía académica para descubrir artículos seminales sobre cualquier tema urbano.</p>
+        </a>
+        <a href="https://www.deepl.com/es/translator" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">DeepL</div>
+          <p class="tool-desc">Traducción de tratados técnicos, patentes y ensayos de arquitectura conservando el rigor terminológico.</p>
+        </a>
+        <a href="https://archive.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Internet Archive</div>
+          <p class="tool-desc">Biblioteca digital universal con millones de tratados históricos de construcción, revistas y planos antiguos.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 7. Recreo (7) -->
+    <section class="cat-section" data-category="recreo">
+      <div class="cat-header">
+        <h2>Recreo</h2>
+        <span class="cat-count">07</span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://oskarstalberg.com/Townscaper/" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Townscaper</div>
+          <p class="tool-desc">Construcción generativa de pueblos costeros, arcos, patios y escaleras con un algoritmo de colapso de ondas.</p>
+        </a>
+        <a href="https://watabou.itch.io/medieval-fantasy-city-generator" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">City Generator</div>
+          <p class="tool-desc">Trazado algorítmico de plantas urbanas históricas con murallas, barrios, plazas y tejido parcelario.</p>
+        </a>
+        <a href="https://radio.garden" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Radio Garden</div>
+          <p class="tool-desc">Globo terráqueo interactivo para sintonizar en vivo emisoras locales de cualquier ciudad del mundo.</p>
+        </a>
+        <a href="https://neal.fun/size-of-space/" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">The Size of Space</div>
+          <p class="tool-desc">Exploración visual de escalas comparadas desde la medida humana hasta las estructuras cósmicas.</p>
+        </a>
+        <a href="https://www.window-swap.com" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">WindowSwap</div>
+          <p class="tool-desc">Miradores silenciosos desde ventanas reales de departamentos y estudios en decenas de ciudades.</p>
+        </a>
+        <a href="https://lichess.org" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Lichess</div>
+          <p class="tool-desc">Tablero de ajedrez libre, sin publicidad ni registro para disputar una partida rápida o resolver problemas.</p>
+        </a>
+        <a href="https://earth.nullschool.net" target="_blank" rel="noopener noreferrer" class="tool-card">
+          <div class="tool-name">Earth Wind Map</div>
+          <p class="tool-desc">Visualización hipnótica en tiempo real de las corrientes atmosféricas, vientos y mareas sobre el globo.</p>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <!-- Home -->
+      <a class="footer-link" href="/" aria-label="Inicio">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+          <polyline points="9 21 9 12 15 12 15 21"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a class="footer-link" href="https://instagram.com/_dolmen" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="footer-link" href="https://www.linkedin.com/company/dolmen-arquitectura" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+
+      <!-- Email -->
+      <a class="footer-link" href="mailto:dolmen.arquitectura@proton.me" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </a>
+    </footer>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const pills = document.querySelectorAll('.filter-pill');
+      const sections = document.querySelectorAll('.cat-section');
+
+      pills.forEach(function (pill) {
+        pill.addEventListener('click', function () {
+          const filter = this.getAttribute('data-filter');
+
+          pills.forEach(function (p) { p.classList.remove('is-active'); });
+          this.classList.add('is-active');
+
+          sections.forEach(function (sec) {
+            if (filter === 'all' || sec.getAttribute('data-category') === filter) {
+              sec.classList.remove('is-hidden');
+            } else {
+              sec.classList.add('is-hidden');
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
