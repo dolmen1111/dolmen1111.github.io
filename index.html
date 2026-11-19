@@ -64,9 +64,17 @@
             opacity: 0.85;
         }
 
+        .enlaces-secundarios {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
         .enlace-transparencia {
             display: inline-block;
-            margin-top: 14px;
             font-size: 11px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -113,10 +121,15 @@
                 padding: 0 10px;
             }
 
-            .enlace-transparencia {
+            .enlaces-secundarios {
                 margin-top: 10px;
-                padding: 4px 12px;
-                font-size: 10px;
+                gap: 6px;
+            }
+
+            .enlace-transparencia {
+                padding: 4px 10px;
+                font-size: 9.5px;
+                letter-spacing: 0.08em;
             }
 
             .firma-jc {
@@ -258,9 +271,14 @@
 
             <p class="hero-credito">
                 Dolmen es una publicación cultural digital y el único canal oficial del <a href="daniel-carmuega.html" class="enlace-autor">Arq. Daniel Roberto Carmuega</a>. Artículos y patrocinios: <a href="mailto:dolmen.arquitectura@proton.me">dolmen.arquitectura@proton.me</a>.<br>
-                Dado en Buenos Aires, <span class="destello-anno">Anno Domini 2026</span>.<br>
-                <a href="transparencia.html" class="enlace-transparencia">Transparencia</a>
+                Dado en Buenos Aires, <span class="destello-anno">Anno Domini 2026</span>.
             </p>
+
+            <div class="enlaces-secundarios">
+                <a href="transparencia.html" class="enlace-transparencia">Transparencia</a>
+                <a href="convocatoria.html" class="enlace-transparencia">Convocatoria a autores</a>
+                <a href="herramientas.html" class="enlace-transparencia">Herramientas</a>
+            </div>
         </div>
 
         <!-- Firma inferior -->
